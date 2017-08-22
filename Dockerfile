@@ -63,6 +63,11 @@ COPY nginx-proxy.conf /etc/nginx-proxy.conf
 COPY supervisord.conf /etc/supervisord.conf
 RUN mkdir -p /var/log/supervisord
 
+# add dummy credentials
+# fixes: https://github.com/instructure/dynamo-local-admin-docker/issues/3
+RUN mkdir /root/.aws
+ADD credentials /root/.aws/
+
 # Configuration for dynamo-admin to know where to hit dynamo.
 ENV DYNAMO_ENDPOINT http://localhost:8002/
 
